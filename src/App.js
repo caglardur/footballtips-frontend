@@ -8,19 +8,31 @@ import MatchDetail from "./component/match-detail"
 
 function App() {
   const [matches, setMatches] = useState(null)
-  console.log(process.env.REACT_APP_DB_HOST)
   useEffect(() => {
     fetch(process.env.REACT_APP_DB_HOST + "matchesByDate/2021-11-06/m180")
       .then(res => res.json())
-      .then(data => setMatches(data))
+      .then(data => {
+        if (data.matches) {
+          data.matches.sort((a, b) => {
+            if (a.fixture.date < b.fixture.date) {
+              return -1
+            }
+            if (a.fixture.date > b.fixture.date) {
+              return +1
+            }
+            return 0
+          })
+        }
+        setMatches(data.matches)
+      })
       .catch(err => console.log(err))
   }, [])
-  console.log(matches)
+
   return (
     <div className="App">
       <Header />
-      <TimeLeague />
-      <MatchList />
+      <TimeLeague matches={matches} />
+      <MatchList matches={matches} />
       <MatchDetail />
     </div>
   )
