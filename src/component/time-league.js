@@ -1,56 +1,54 @@
 import React, { useEffect, useState } from "react"
 const TimeLeague = ({ matches }) => {
   const [leagues, setLeagues] = useState(null)
-  const [countries, setCountries] = useState(null)
 
-  let leagueArray = []
   let countryArray = []
 
   useEffect(() => {
     if (matches) {
       matches.map(match => {
-        const countryIndex = countryArray.findIndex(e => e.country === match.league.country)
+        const countryIndex = countryArray.findIndex(country => country.country === match.league.country)
         if (countryIndex < 0) {
-          countryArray.push({ country: match.league.country, flag: match.league.flag, count: 1 })
+          countryArray.push({ country: match.league.country, flag: match.league.flag, leagues: [{ league: match.league.name, id: match.league.id, matchCount: 1 }] })
         } else {
-          countryArray[countryIndex].count += 1
+          const leagueIndex = countryArray[countryIndex].leagues.findIndex(league => league.id === match.league.id)
+          if (leagueIndex < 0) {
+            countryArray[countryIndex].leagues.push({ league: match.league.name, id: match.league.id, matchCount: 1 })
+          } else {
+            countryArray[countryIndex].leagues[leagueIndex].matchCount += 1
+          }
         }
       })
     }
-    countryArray.sort((a, b) => {
-      if (a.country < b.country) {
-        return -1
-      }
-      if (a.country > b.country) {
-        return +1
-      }
-      return 0
-    })
-    setCountries(countryArray)
-  }, [matches])
 
-  console.log(countries)
+    countryArray.map(match => match.leagues.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0)))
+    countryArray.sort((a, b) => (a.country > b.country ? 1 : b.country > a.country ? -1 : 0))
+
+    setLeagues(countryArray)
+  }, [matches])
 
   return (
     <div>
       <ul className="list-group">
-        {countries &&
-          countries.length > 0 &&
-          countries.map(country => (
-            <li className="list-group-item d-flex justify-content-between align-items-center text-start">
-              <div className="col-4">
-                <div className="row align-items-start">
-                  <div className="col">
-                    <input className="form-check-input me-1" type="checkbox" defaultValue aria-label="..." />
-                  </div>
-                  <div className="col">
-                    <img src={country.flag} className="rounded float-start" alt={country.country} height="12" />
-                  </div>
-                  <div className="col">{country.country}</div>
+        {leagues &&
+          leagues.length > 0 &&
+          leagues.map(country => (
+            <li className="list-group-item d-flex justify-content-between align-items-center text-start bg-transparent border-0">
+              <div className="col">
+                <div className="col">
+                  <img src={country.flag} className="rounded mx-auto my-auto mr-5" alt={country.country} height="14" />
+                  {country.country}
                 </div>
+                <ul className="list-group">
+                  {country.leagues.map(league => (
+                    <li className="list-group-item d-flex justify-content-between align-items-center text-start bg-transparent">
+                      <input className="form-check-input me-1" type="checkbox" defaultValue aria-label="..." />
+                      <div className="col ms-4">{league.league}</div>
+                      <span className="badge bg-primary rounded-pill">{league.matchCount}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              <span className="badge bg-primary rounded-pill">{country.count}</span>
             </li>
           ))}
       </ul>
