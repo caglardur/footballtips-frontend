@@ -29,11 +29,21 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
-      <Header />
-      <TimeLeague matches={matches} />
-      <MatchList matches={matches} />
-      <MatchDetail />
+    <div className="container-fluid">
+      <div className="col">
+        <Header />
+      </div>
+      <div className="row">
+        <div className="col-2">
+          <TimeLeague matches={matches} />
+        </div>
+        <div className="col-5">
+          <MatchList matches={matches} />
+        </div>
+        <div className="col-5">
+          <MatchDetail />
+        </div>
+      </div>
     </div>
   )
 }

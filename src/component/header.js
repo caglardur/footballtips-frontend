@@ -1,5 +1,5 @@
 const Header = () => {
-  return <div>Overtimescore</div>
+  return <div className="col">Overtime</div>
 }
 
 export default Header
