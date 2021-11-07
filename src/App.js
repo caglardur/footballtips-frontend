@@ -30,12 +30,14 @@ function App() {
 
   return (
     <div className="container-fluid">
-      <div className="col">
-        <Header />
-      </div>
-      <div className="row">
+      <div className="row mt-2">
         <div className="col-2">
-          <TimeLeague matches={matches} />
+          <div className="col">
+            <Header />
+          </div>
+          <div className="col">
+            <TimeLeague matches={matches} />
+          </div>
         </div>
         <div className="col-5">
           <MatchList matches={matches} />

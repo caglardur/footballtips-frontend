@@ -28,30 +28,41 @@ const TimeLeague = ({ matches }) => {
   }, [matches])
 
   return (
-    <div>
-      <ul className="list-group">
-        {leagues &&
-          leagues.length > 0 &&
-          leagues.map(country => (
-            <li className="list-group-item d-flex justify-content-between align-items-center text-start bg-transparent border-0">
-              <div className="col">
-                <div className="col">
-                  <img src={country.flag} className="rounded mx-auto my-auto mr-5" alt={country.country} height="14" />
+    <div className="col">
+      <div className="col mt-2">
+        <div className="card">
+          <div className="card-header">Date Picker</div>
+          <div className="card-body">
+            <p className="card-text">Select a date.</p>
+            <a href="#" className="btn btn-primary">
+              Set
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className="col mt-2">
+        <div className="card">
+          <div className="card-header">League Picker</div>
+          <ul className="list-group list-group-flush">
+            {leagues &&
+              leagues.length > 0 &&
+              leagues.map(country => (
+                <li className="list-group-item">
+                  <img src={country.flag} className="rounded mx-auto my-auto" alt={country.country} height="14" />
                   {country.country}
-                </div>
-                <ul className="list-group">
-                  {country.leagues.map(league => (
-                    <li className="list-group-item d-flex justify-content-between align-items-center text-start bg-transparent">
-                      <input className="form-check-input me-1" type="checkbox" defaultValue aria-label="..." />
-                      <div className="col ms-4">{league.league}</div>
-                      <span className="badge bg-primary rounded-pill">{league.matchCount}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          ))}
-      </ul>
+                  <ul className="list-group list-group-flush">
+                    {country.leagues.map(league => (
+                      <li className="list-group-item d-flex justify-content-start align-items-center text-start ">
+                        <div className="col">{league.league}</div>
+                        <span className="badge bg-primary rounded-pill">{league.matchCount}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+          </ul>
+        </div>
+      </div>
     </div>
   )
 }
