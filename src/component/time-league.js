@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react"
+
+import Date from "./date-league/date"
+import Leagues from "./date-league/leagues"
+
 const TimeLeague = ({ matches }) => {
   const [leagues, setLeagues] = useState(null)
 
@@ -30,36 +34,19 @@ const TimeLeague = ({ matches }) => {
   return (
     <div className="col">
       <div className="col mt-2">
-        <div className="card">
-          <div className="card-header">Date Picker</div>
-          <div className="card-body">
-            <p className="card-text">Select a date.</p>
-            <a href="#" className="btn btn-primary">
-              Set
-            </a>
-          </div>
-        </div>
+        <Date />
       </div>
       <div className="col mt-2">
         <div className="card">
           <div className="card-header">League Picker</div>
           <ul className="list-group list-group-flush">
-            {leagues &&
-              leagues.length > 0 &&
-              leagues.map(country => (
-                <li className="list-group-item">
-                  <img src={country.flag} className="rounded mx-auto my-auto" alt={country.country} height="14" />
-                  {country.country}
-                  <ul className="list-group list-group-flush">
-                    {country.leagues.map(league => (
-                      <li className="list-group-item d-flex justify-content-start align-items-center text-start ">
-                        <div className="col">{league.league}</div>
-                        <span className="badge bg-primary rounded-pill">{league.matchCount}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
+            {leagues && leagues.length > 0 ? (
+              <Leagues leagues={leagues} />
+            ) : (
+              <div className="spinner-border mx-auto my-4  text-secondary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            )}
           </ul>
         </div>
       </div>

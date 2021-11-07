@@ -9,7 +9,7 @@ import MatchDetail from "./component/match-detail"
 function App() {
   const [matches, setMatches] = useState(null)
   useEffect(() => {
-    fetch(process.env.REACT_APP_DB_HOST + "matchesByDate/2021-11-06/m180")
+    fetch(process.env.REACT_APP_DB_HOST + "matchesByDate/2021-11-07/m180")
       .then(res => res.json())
       .then(data => {
         if (data.matches) {
@@ -31,7 +31,7 @@ function App() {
   return (
     <div className="container-fluid">
       <div className="row mt-2">
-        <div className="col-2">
+        <div className="col">
           <div className="col">
             <Header />
           </div>
@@ -39,10 +39,10 @@ function App() {
             <TimeLeague matches={matches} />
           </div>
         </div>
-        <div className="col-5">
+        <div className="col">
           <MatchList matches={matches} />
         </div>
-        <div className="col-5">
+        <div className="col">
           <MatchDetail />
         </div>
       </div>
