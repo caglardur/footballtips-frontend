@@ -9,7 +9,7 @@ import MatchDetail from "./component/match-detail"
 function App() {
   const [matches, setMatches] = useState(null)
   useEffect(() => {
-    fetch(process.env.REACT_APP_DB_HOST + "matchesByDate/2021-11-07/m180")
+    fetch(process.env.REACT_APP_DB_HOST + "matchesByDate/2021-11-08/m180")
       .then(res => res.json())
       .then(data => {
         if (data.matches) {

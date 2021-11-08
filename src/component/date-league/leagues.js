@@ -1,6 +1,13 @@
+import React, { useEffect } from "react"
+
 const Leagues = ({ leagues }) => {
+  console.log(window.innerHeight)
+  const leagueList = document.getElementById("leageuList")
+  var rect = leagueList.getBoundingClientRect()
+  console.log(rect.top)
+
   return (
-    <div>
+    <div className="overflow-auto" style={{ maxHeight: window.innerHeight - rect.top - 50, overflow: "auto" }}>
       {leagues.map(country => (
         <ul className="list-group  list-group-flush border-bottom">
           <li className="list-group-item">
