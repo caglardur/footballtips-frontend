@@ -49,7 +49,13 @@ function App() {
           </div>
         </div>
         <div className="col">
-          <MatchDetail />
+          {matches ? (
+            <MatchDetail match={matches[106]} />
+          ) : (
+            <div className="spinner-border mx-auto my-4  text-secondary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
