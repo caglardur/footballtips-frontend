@@ -12,7 +12,7 @@ const TimeLeague = ({ matches }) => {
       matches.map(match => {
         const countryIndex = countryArray.findIndex(country => country.country === match.league.country)
         if (countryIndex < 0) {
-          return countryArray.push({ country: match.league.country, flag: match.league.flag, leagues: [{ league: match.league.name, id: match.league.id, matchCount: 1 }] })
+          return countryArray.push({ country: match.league.country, flag: match.league.flag, leagues: [{ league: match.league.name, id: match.league.id, matchCount: 1 }], id: countryArray.length })
         } else {
           const leagueIndex = countryArray[countryIndex].leagues.findIndex(league => league.id === match.league.id)
           if (leagueIndex < 0) {
@@ -35,9 +35,9 @@ const TimeLeague = ({ matches }) => {
       <div className="col mt-2">
         <Date />
       </div>
-      <div className="col mt-2">
+      <div className="col mt-2" id="leageuList">
         <div className="card">
-          <div className="card-header" id="leageuList">League Picker</div>
+          <div className="card-header">League Picker</div>
           {leagues && leagues.length > 0 ? (
             <Leagues leagues={leagues} />
           ) : (

@@ -5,6 +5,7 @@ import Header from "./component/header"
 import TimeLeague from "./component/time-league"
 import MatchList from "./component/match-list"
 import MatchDetail from "./component/match-detail"
+import SelectedLeagues from "./component/selected-leagues"
 
 function App() {
   const [matches, setMatches] = useState(null)
@@ -40,7 +41,12 @@ function App() {
           </div>
         </div>
         <div className="col">
-          <MatchList matches={matches} />
+          <div className="col" id="selectedLeagues">
+            <SelectedLeagues />
+          </div>
+          <div className="col">
+            <MatchList matches={matches} />
+          </div>
         </div>
         <div className="col">
           <MatchDetail />
