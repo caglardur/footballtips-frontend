@@ -2,18 +2,20 @@ const Leagues = ({ leagues }) => {
   return (
     <div>
       {leagues.map(country => (
-        <li className="list-group-item">
-          <img src={country.flag} className="rounded mx-auto my-auto" alt={country.country} height="14" />
-          {country.country}
-          <ul className="list-group list-group-flush">
-            {country.leagues.map(league => (
-              <li className="list-group-item d-flex justify-content-start align-items-center text-start ">
-                <div className="col">{league.league}</div>
-                <span className="badge bg-primary rounded-pill">{league.matchCount}</span>
-              </li>
-            ))}
-          </ul>
-        </li>
+        <ul className="list-group  list-group-flush border-bottom">
+          <li className="list-group-item">
+            <div className="col">
+              <img src={country.flag} className="me-2 mb-1" alt={country.country} height="14" />
+              {country.country}
+            </div>
+          </li>
+          {country.leagues.map(league => (
+            <li className="list-group-item list-group-item-action">
+              <span className="badge bg-secondary rounded-pill mx-3">{league.matchCount}</span>
+              {league.league}
+            </li>
+          ))}
+        </ul>
       ))}
     </div>
   )
