@@ -32,7 +32,7 @@ function App() {
   return (
     <div className="container-fluid">
       <div className="row mt-2">
-        <div className="col">
+        <div style={{ width: "400px" }}>
           <div className="col">
             <Header />
           </div>
