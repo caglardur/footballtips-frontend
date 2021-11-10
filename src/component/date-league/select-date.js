@@ -10,11 +10,16 @@ const SelectDate = () => {
   const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   let week = []
 
+  const newDateFunction = i => {
+    toDay.setDate(toDay.getDate() + i)
+    dispatch(newDate(toDay.getFullYear() + "-" + (toDay.getMonth() + 1 > 9 ? toDay.getMonth() + 1 : "0" + toDay.getMonth() + 1) + "-" + (toDay.getDate() > 9 ? toDay.getDate() : "0" + toDay.getDate())))
+  }
+
   for (let i = -2; i < 3; i++) {
     week.push(
-      <button type="button" className={matchDate.getDate() === toDay.getDate() + i ? "col mx-1 px-1 btn btn-primary" : "col mx-1 px-1 btn btn-secondary"} key={i} onClick={() => dispatch(newDate(toDay.setDate(toDay.getDate() + i)))}>
-        <div className="col fs-3">{toDay.getUTCDate() + i < 10 ? "0" + (toDay.getUTCDate() + i) : toDay.getUTCDate() + i} </div>
-        <div className="col">{month[toDay.getUTCMonth() > 11 ? toDay.getUTCMonth() - 12 : toDay.getUTCMonth()]}</div>
+      <button type="button" className={new Date(matchDate).getDate() === toDay.getDate() + i ? "col mx-1 px-1 btn btn-primary" : "col mx-1 px-1 btn btn-secondary"} key={i} onClick={() => newDateFunction(i)}>
+        <div className="col fs-3">{toDay.getDate() + i < 10 ? "0" + (toDay.getDate() + i) : toDay.getDate() + i} </div>
+        <div className="col">{month[toDay.getMonth() > 11 ? toDay.getMonth() - 12 : toDay.getMonth()]}</div>
       </button>
     )
   }

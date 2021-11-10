@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+const toDay = new Date()
+
 export const setDate = createSlice({
   name: "matchDate",
   initialState: {
-    value: new Date()
+    value: toDay.getFullYear() + "-" + (toDay.getMonth() + 1 > 9 ? toDay.getMonth() + 1 : "0" + toDay.getMonth() + 1) + "-" + (toDay.getDate() > 9 ? toDay.getDate() : "0" + toDay.getDate())
   },
   reducers: {
     newDate: (state, action) => {
-      state.value = new Date(action.payload)
+      state.value = action.payload
     }
   }
 })

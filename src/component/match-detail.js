@@ -1,5 +1,4 @@
 const MatchDetail = ({ match }) => {
-  console.log(match)
   return (
     <div className="card">
       <div className="card-header">Match Detail</div>

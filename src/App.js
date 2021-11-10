@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+
+import { thatDate } from "./redux/set-date"
 import "./App.css"
 
 import Header from "./component/header"
@@ -9,8 +12,12 @@ import SelectedLeagues from "./component/selected-leagues"
 
 function App() {
   const [matches, setMatches] = useState(null)
+  const matchDate = useSelector(thatDate)
+  console.log(matchDate)
+
   useEffect(() => {
-    fetch(process.env.REACT_APP_DB_HOST + "matchesByDate/2021-11-08/m180")
+    setMatches(null)
+    fetch(process.env.REACT_APP_DB_HOST + "matchesByDate/" + matchDate + "/m180")
       .then(res => res.json())
       .then(data => {
         if (data.matches) {
@@ -27,7 +34,7 @@ function App() {
         setMatches(data.matches)
       })
       .catch(err => console.log(err))
-  }, [])
+  }, [matchDate])
 
   return (
     <div className="container-fluid">
