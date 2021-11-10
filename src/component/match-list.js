@@ -32,8 +32,8 @@ const MatchList = ({ matches }) => {
               ))
             ) : (
               <tr>
-                <td>
-                  <div className="spinner-border mx-auto my-4  text-secondary" role="status">
+                <td colSpan={4} className="text-center">
+                  <div className="spinner-border mx-5 my-5 text-secondary" role="status">
                     <span className="visually-hidden">Loading...</span>
                   </div>
                 </td>

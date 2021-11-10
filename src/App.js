@@ -57,7 +57,7 @@ function App() {
         </div>
         <div className="col">
           {matches ? (
-            <MatchDetail match={matches[106]} />
+            <MatchDetail match={matches[0]} />
           ) : (
             <div className="spinner-border mx-auto my-4  text-secondary" role="status">
               <span className="visually-hidden">Loading...</span>
