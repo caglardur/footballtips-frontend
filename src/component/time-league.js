@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-import Date from "./date-league/date"
+import SelectDate from "./date-league/select-date"
 import Leagues from "./date-league/leagues"
 
 const TimeLeague = ({ matches }) => {
@@ -33,7 +33,7 @@ const TimeLeague = ({ matches }) => {
   return (
     <div className="col">
       <div className="col mt-2">
-        <Date />
+        <SelectDate />
       </div>
       <div className="col mt-2" id="leageuList">
         <div className="card">
