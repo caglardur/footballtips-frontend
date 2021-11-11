@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 
 import { thatDate } from "./redux/set-date"
+import { thatLeague } from "./redux/set-leagues"
 import "./App.css"
 
 import Header from "./component/header"
@@ -13,7 +14,7 @@ import SelectedLeagues from "./component/selected-leagues"
 function App() {
   const [matches, setMatches] = useState(null)
   const matchDate = useSelector(thatDate)
-  console.log(matchDate)
+  const matchLeague = useSelector(thatLeague)
 
   useEffect(() => {
     setMatches(null)
@@ -48,9 +49,11 @@ function App() {
           </div>
         </div>
         <div className="col">
-          <div className="col" id="selectedLeagues">
-            <SelectedLeagues />
-          </div>
+          {matchLeague.length > 0 && (
+            <div className="col" id="selectedLeagues">
+              <SelectedLeagues />
+            </div>
+          )}
           <div className="col">
             <MatchList matches={matches} />
           </div>

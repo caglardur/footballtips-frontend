@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import LeagueName from "./match-list/league-name"
 import SingleListItem from "./match-list/singleListItem"
 
 const MatchList = ({ matches }) => {
@@ -25,10 +26,23 @@ const MatchList = ({ matches }) => {
           </thead>
           <tbody>
             {match ? (
-              match.map(m => (
-                <tr key={m.fixture.id}>
-                  <SingleListItem match={m} />
-                </tr>
+              match.map((m, index) => (
+                <>
+                  {index === 0 ? (
+                    <tr key={m.fixture.id + m.fixture.country}>
+                      <LeagueName nowMatch={m} />
+                    </tr>
+                  ) : (
+                    m.league.id !== match[index - 1].league.id && (
+                      <tr key={m.fixture.id + m.fixture.country}>
+                        <LeagueName nowMatch={m} />
+                      </tr>
+                    )
+                  )}
+                  <tr key={m.fixture.id}>
+                    <SingleListItem match={m} />
+                  </tr>
+                </>
               ))
             ) : (
               <tr>
