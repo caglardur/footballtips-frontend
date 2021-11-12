@@ -10,7 +10,7 @@ export const setLeague = createSlice({
       state.value.push(action.payload)
     },
     removeLeague: (state, action) => {
-      state.value = state.value.map(league => league.id !== action.payload.id)
+      state.value = state.value.filter(league => league.id !== action.payload.id)
     },
     removeAllLeagues: state => {
       state.value = []
