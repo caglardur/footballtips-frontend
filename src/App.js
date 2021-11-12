@@ -48,9 +48,9 @@ function App() {
             <TimeLeague matches={matches} />
           </div>
         </div>
-        <div className="col">
+        <div className="col" style={{ maxWidth: "640px" }}>
           {matchLeague.length > 0 && (
-            <div className="col" id="selectedLeagues">
+            <div className="col mb-2" id="selectedLeagues">
               <SelectedLeagues />
             </div>
           )}

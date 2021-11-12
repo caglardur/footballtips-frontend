@@ -12,7 +12,7 @@ const MatchList = ({ matches }) => {
   }, [matches])
 
   return (
-    <div className="card mt-2 ">
+    <div className="card">
       <div className="card-header">Match List</div>
       <div className="card-body overflow-auto" style={{ maxHeight: window.innerHeight - (selectedLeagues ? selectedLeagues.offsetHeight + 65 : 0), overflow: "auto" }}>
         <table className="table table-hover">
