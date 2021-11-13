@@ -6,10 +6,11 @@ import { thatLeague } from "./redux/set-leagues"
 import "./App.css"
 
 import Header from "./component/header"
-import TimeLeague from "./component/time-league"
+import LeagueList from "./component/league-list"
 import MatchList from "./component/match-list"
 import MatchDetail from "./component/match-detail"
 import SelectedLeagues from "./component/selected-leagues"
+import DateSelection from "./component/date-selection"
 
 function App() {
   const [matches, setMatches] = useState(null)
@@ -38,37 +39,31 @@ function App() {
   }, [matchDate])
 
   return (
-    <div className="container-fluid">
-      <div className="row mt-2">
-        <div style={{ width: "400px" }}>
+    <main>
+      <header className="px-3 pb-0 bg-success text-white">
+        <div className="row">
           <div className="col">
             <Header />
           </div>
-          <div className="col">
-            <TimeLeague matches={matches} />
+          <div className="col-md-auto">
+            <DateSelection />
           </div>
         </div>
-        <div className="col" style={{ maxWidth: "640px" }}>
-          {matchLeague.length > 0 && (
-            <div className="col mb-2" id="selectedLeagues">
-              <SelectedLeagues />
-            </div>
-          )}
-          <div className="col">
+      </header>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col mt-2" style={{ maxWidth: "400px" }}>
+            <LeagueList matches={matches} />
+          </div>
+          <div className="col mt-2">
             <MatchList matches={matches} />
           </div>
-        </div>
-        <div className="col">
-          {matches ? (
-            <MatchDetail match={matches[0]} />
-          ) : (
-            <div className="spinner-border mx-auto my-4  text-secondary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          )}
+          <div className="col mt-2">
+            <MatchDetail matches={matches} />
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 

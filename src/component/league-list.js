@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
 
-import SelectDate from "./date-league/select-date"
-import Leagues from "./date-league/leagues"
+import Leagues from "./leagues/leagues"
+import { thatLeague } from "../redux/set-leagues"
 
-const TimeLeague = ({ matches }) => {
+const LeagueList = ({ matches }) => {
   const [leagues, setLeagues] = useState(null)
+  const matchLeague = useSelector(thatLeague)
 
   useEffect(() => {
     let countryArray = []
@@ -32,23 +34,25 @@ const TimeLeague = ({ matches }) => {
 
   return (
     <div className="col">
-      <div className="col mt-2">
-        <SelectDate />
-      </div>
-      <div className="col mt-2" id="leageuList">
-        <div className="card">
-          <div className="card-header">League Picker</div>
-          {leagues && leagues.length > 0 ? (
-            <Leagues leagues={leagues} />
-          ) : (
-            <div className="spinner-border mx-auto my-4  text-secondary" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          )}
+      <div className="card">
+        <div className="card-header">
+          <div className="row">
+            <div className="col">League Picker</div>
+            {matchLeague.length > 0 && <div className="col-md-auto bg-success text-light rounded me-2">Selected: {matchLeague.length}</div>}
+          </div>
         </div>
+        {leagues && leagues.length > 0 ? (
+          <div className="overflow-auto" style={{ maxHeight: window.innerHeight - 130, overflow: "auto" }}>
+            <Leagues leagues={leagues} />
+          </div>
+        ) : (
+          <div className="spinner-border mx-auto my-4  text-secondary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        )}
       </div>
     </div>
   )
 }
 
-export default TimeLeague
+export default LeagueList
