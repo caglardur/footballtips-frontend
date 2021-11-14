@@ -16,10 +16,26 @@ const Leagues = ({ leagues }) => {
     }
   }
 
-  console.log(matchLeague)
-
   return (
     <ul className="list-group">
+      <li className="list-group-item border-0">
+        <ul className="list-group">
+          {matchLeague.length > 0 &&
+            matchLeague.map(league => (
+              <li className="list-group-item list-group-item-action bg-success text-light ">
+                <div className="row">
+                  <div className="col-md-auto">
+                    <img src={league.flag || "/world.png"} className="mb-1" alt={league.country} height="14" />
+                  </div>
+                  <div className="col text-nowrap overflow-hidden mx-0 px-0">{league.league}</div>
+                  <div className="col-md-auto">
+                    <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={() => dispatch(removeLeague(league))} />
+                  </div>
+                </div>
+              </li>
+            ))}
+        </ul>
+      </li>
       {leagues.map(country => (
         <li className="list-group-item border-0 pb-0" key={country.id}>
           <div className="col mb-1 ps-2">

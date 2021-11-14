@@ -16,7 +16,7 @@ const DateSelection = () => {
 
   for (let i = -1; i < 4; i++) {
     week.push(
-      <div type="button" className={new Date(matchDate).getDate() === toDay.getDate() + i ? "col px-3 pt-1 ms-1 text-center bg-white text-dark rounded-0" : "col px-3 mt-1 ms-1 text-center bg-dark text-light  rounded-0"} key={i} onClick={() => newDateFunction(i)}>
+      <div type="button" className={new Date(matchDate).getDate() === toDay.getDate() + i ? "col px-5 pt-1 ms-1 text-center bg-white text-dark rounded-0 rounded-top " : "col px-5 mt-1 ms-1 text-center bg-dark text-light rounded-0 rounded-top opacity-50"} key={i} onClick={() => newDateFunction(i)}>
         <div className="col fs-4 fw-bold lh-sm">{toDay.getDate() + i < 10 ? "0" + (toDay.getDate() + i) : toDay.getDate() + i} </div>
         <div className="col lh-sm pb-2">{month[toDay.getMonth() > 11 ? toDay.getMonth() - 12 : toDay.getMonth()]}</div>
       </div>

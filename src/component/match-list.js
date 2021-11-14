@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+
+import { thatLeague } from "../redux/set-leagues"
 import LeagueName from "./match-list/league-name"
 import SingleListItem from "./match-list/singleListItem"
 
 const MatchList = ({ matches }) => {
   const [match, setMatch] = useState(null)
+  const matchLeague = useSelector(thatLeague)
 
   useEffect(() => {
-    setMatch(matches)
-  }, [matches])
+    if (matches && matches.length > 0) {
+      if (matchLeague.length > 0) {
+        const newMatchList = matches.filter(match => matchLeague.some(league => league.id === match.league.id))
+        setMatch([...newMatchList])
+      } else {
+        setMatch([...matches])
+      }
+    }
+  }, [matches, matchLeague])
 
   return (
     <div className="card">

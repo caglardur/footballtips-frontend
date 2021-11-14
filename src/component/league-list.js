@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
 import Leagues from "./leagues/leagues"
-import { thatLeague } from "../redux/set-leagues"
+import { thatLeague, removeAllLeagues } from "../redux/set-leagues"
 
 const LeagueList = ({ matches }) => {
   const [leagues, setLeagues] = useState(null)
   const matchLeague = useSelector(thatLeague)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     let countryArray = []
@@ -26,10 +27,10 @@ const LeagueList = ({ matches }) => {
       })
     }
 
-    countryArray.map(match => match.leagues.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0)))
+    countryArray.map(country => country.leagues.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0)))
     countryArray.sort((a, b) => (a.country > b.country ? 1 : b.country > a.country ? -1 : 0))
 
-    setLeagues(countryArray)
+    setLeagues([...countryArray])
   }, [matches])
 
   return (
@@ -38,7 +39,13 @@ const LeagueList = ({ matches }) => {
         <div className="card-header">
           <div className="row">
             <div className="col">League Picker</div>
-            {matchLeague.length > 0 && <div className="col-md-auto bg-success text-light rounded me-2">Selected: {matchLeague.length}</div>}
+            {matchLeague.length > 0 && (
+              <div className="col-md-auto  rounded me-2">
+                <div type="button" className="col bg-danger text-light rounded px-2" onClick={() => dispatch(removeAllLeagues())}>
+                  Clear
+                </div>
+              </div>
+            )}
           </div>
         </div>
         {leagues && leagues.length > 0 ? (
