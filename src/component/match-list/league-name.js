@@ -1,9 +1,9 @@
-const LeagueName = ({ nowMatch }) => {
+const LeagueName = ({ match }) => {
   return (
-    <td colSpan={4} className="py-1 bg-light">
-      <img src={nowMatch.league.flag || "/world.png"} className="me-2 mb-1" alt={nowMatch.league.country} height="14" />
-      {nowMatch.league.country} - {nowMatch.league.name}
-    </td>
+    <div className="col">
+      <img src={match.league.flag || "/world.png"} className="me-2 mb-1" alt={match.league.country} height="14" />
+      {match.league.country} - {match.league.name}
+    </div>
   )
 }
 

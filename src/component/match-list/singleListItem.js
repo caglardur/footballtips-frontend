@@ -2,12 +2,12 @@ const SingleListItem = ({ match }) => {
   const matchDate = new Date(match.fixture.date)
 
   return (
-    <>
-      <th scope="row">{matchDate.toLocaleTimeString().slice(0, 5)}</th>
-      <td>{match.teams.home.name}</td>
-      <td>-</td>
-      <td>{match.teams.away.name}</td>
-    </>
+    <div className="row">
+      <div className="col-md-auto">{matchDate.toLocaleTimeString().slice(0, 5)}</div>
+      <div className="col">{match.teams.home.name}</div>
+      <div className="col-md-auto">-</div>
+      <div className="col">{match.teams.away.name}</div>
+    </div>
   )
 }
 

@@ -10,51 +10,49 @@ const MatchList = ({ matches }) => {
   const matchLeague = useSelector(thatLeague)
 
   useEffect(() => {
+    setMatch(null)
     if (matches && matches.length > 0) {
       if (matchLeague.length > 0) {
         const newMatchList = matches.filter(match => matchLeague.some(league => league.id === match.league.id))
-        setMatch([...newMatchList])
+        setMatch(newMatchList)
       } else {
-        setMatch([...matches])
+        setMatch(matches)
       }
     }
   }, [matches, matchLeague])
 
   return (
-    <div className="card">
+    <div className="card rounded-0">
       <div className="card-header">Match List</div>
       {match ? (
-        <div className="card-body overflow-auto" style={{ maxHeight: window.innerHeight - 130, overflow: "auto" }}>
-          <table className="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Home Team</th>
-                <th scope="col"></th>
-                <th scope="col">Away Team</th>
-              </tr>
-            </thead>
-            <tbody>
-              {match.map((m, index) => (
-                <>
-                  {index === 0 ? (
-                    <tr key={m.fixture.id + m.fixture.country}>
-                      <LeagueName nowMatch={m} />
-                    </tr>
-                  ) : (
-                    m.league.id !== match[index - 1].league.id && (
-                      <tr key={m.fixture.id + m.fixture.country}>
-                        <LeagueName nowMatch={m} />
-                      </tr>
-                    )
-                  )}
-                  <tr key={m.fixture.id}>
+        <div className="card-body overflow-auto" style={{ height: window.innerHeight - 130, overflow: "auto" }}>
+          <ul className="list-group">
+            {match.map((m, index) =>
+              index === 0 ? (
+                <div className="col" key={m.fixture.id}>
+                  <div className="col mb-2">
+                    <LeagueName match={m} />
+                  </div>
+                  <li type="button" className="list-group-item list-group-item-action">
                     <SingleListItem match={m} />
-                  </tr>
-                </>
-              ))}
-            </tbody>
-          </table>
+                  </li>
+                </div>
+              ) : m.league.id !== match[index - 1].league.id ? (
+                <div className="col" key={m.fixture.id}>
+                  <div className="col my-2">
+                    <LeagueName match={m} />
+                  </div>
+                  <li type="button" className="list-group-item list-group-item-action">
+                    <SingleListItem match={m} />
+                  </li>
+                </div>
+              ) : (
+                <li type="button" className="list-group-item list-group-item-action border-top-0" key={m.fixture.id}>
+                  <SingleListItem match={m} />
+                </li>
+              )
+            )}
+          </ul>
         </div>
       ) : (
         <div className="spinner-border mx-auto my-4 text-secondary text-center" role="status">

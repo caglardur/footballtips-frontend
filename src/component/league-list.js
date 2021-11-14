@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
 
 import Leagues from "./leagues/leagues"
-import { thatLeague, removeAllLeagues } from "../redux/set-leagues"
 
 const LeagueList = ({ matches }) => {
   const [leagues, setLeagues] = useState(null)
-  const matchLeague = useSelector(thatLeague)
-  const dispatch = useDispatch()
 
   useEffect(() => {
     let countryArray = []
@@ -35,21 +31,12 @@ const LeagueList = ({ matches }) => {
 
   return (
     <div className="col">
-      <div className="card">
+      <div className="card rounded-0">
         <div className="card-header">
-          <div className="row">
-            <div className="col">League Picker</div>
-            {matchLeague.length > 0 && (
-              <div className="col-md-auto  rounded me-2">
-                <div type="button" className="col bg-danger text-light rounded px-2" onClick={() => dispatch(removeAllLeagues())}>
-                  Clear
-                </div>
-              </div>
-            )}
-          </div>
+          <div className="col">League Picker</div>
         </div>
         {leagues && leagues.length > 0 ? (
-          <div className="overflow-auto" style={{ maxHeight: window.innerHeight - 130, overflow: "auto" }}>
+          <div className="overflow-auto" style={{ height: window.innerHeight - 130, overflow: "auto" }}>
             <Leagues leagues={leagues} />
           </div>
         ) : (

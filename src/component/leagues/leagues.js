@@ -1,7 +1,7 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 
-import { addLeague, removeLeague, thatLeague } from "../../redux/set-leagues"
+import { addLeague, removeLeague, removeAllLeagues, thatLeague } from "../../redux/set-leagues"
 
 const Leagues = ({ leagues }) => {
   const matchLeague = useSelector(thatLeague)
@@ -22,7 +22,7 @@ const Leagues = ({ leagues }) => {
         <ul className="list-group">
           {matchLeague.length > 0 &&
             matchLeague.map(league => (
-              <li className="list-group-item list-group-item-action bg-success text-light ">
+              <li className="list-group-item list-group-item-action bg-success text-light rounded-0" key={league.id}>
                 <div className="row">
                   <div className="col-md-auto">
                     <img src={league.flag || "/world.png"} className="mb-1" alt={league.country} height="14" />
@@ -34,6 +34,13 @@ const Leagues = ({ leagues }) => {
                 </div>
               </li>
             ))}
+          {matchLeague.length > 1 && (
+            <div className="col-md-auto my-1 align-self-end">
+              <button type="button" className="btn btn-sm btn-danger rounded-0 " onClick={() => dispatch(removeAllLeagues())}>
+                Clear All
+              </button>
+            </div>
+          )}
         </ul>
       </li>
       {leagues.map(country => (
@@ -44,7 +51,7 @@ const Leagues = ({ leagues }) => {
           </div>
           <ul className="list-group">
             {country.leagues.map(league => (
-              <li type="button" className={matchLeague.some(match => match.id === league.id) ? "list-group-item list-group-item-action  bg-success text-light" : "list-group-item list-group-item-action"} key={league.id} onClick={() => addLeageuToState({ league: league.league, id: league.id, country: country.country, flag: country.flag })}>
+              <li type="button" className={matchLeague.some(match => match.id === league.id) ? "list-group-item list-group-item-action rounded-0  bg-success text-light" : "list-group-item list-group-item-action rounded-0"} key={league.id} onClick={() => addLeageuToState({ league: league.league, id: league.id, country: country.country, flag: country.flag })}>
                 <div className="row">
                   <div className="col">{league.league}</div>
                   <div className="col-md-auto">

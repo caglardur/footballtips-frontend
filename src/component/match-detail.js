@@ -1,6 +1,6 @@
 const MatchDetail = ({ matches }) => {
   return (
-    <div className="card">
+    <div className="card rounded-0">
       <div className="card-header">Match Detail</div>
       {matches ? (
         <div className="card-body" style={{ height: window.innerHeight - 130, overflow: "auto" }}>

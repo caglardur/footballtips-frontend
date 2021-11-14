@@ -2,20 +2,17 @@ import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 
 import { thatDate } from "./redux/set-date"
-import { thatLeague } from "./redux/set-leagues"
 import "./App.css"
 
 import Header from "./component/header"
 import LeagueList from "./component/league-list"
 import MatchList from "./component/match-list"
 import MatchDetail from "./component/match-detail"
-import SelectedLeagues from "./component/selected-leagues"
 import DateSelection from "./component/date-selection"
 
 function App() {
   const [matches, setMatches] = useState(null)
   const matchDate = useSelector(thatDate)
-  const matchLeague = useSelector(thatLeague)
 
   useEffect(() => {
     setMatches(null)
@@ -50,7 +47,7 @@ function App() {
           </div>
         </div>
       </header>
-      <div className="container-fluid">
+      <div className="container-fluid" style={{ fontSize: "12px" }}>
         <div className="row">
           <div className="col mt-2" style={{ maxWidth: "400px" }}>
             <LeagueList matches={matches} />
