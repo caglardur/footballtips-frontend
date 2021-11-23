@@ -33,7 +33,7 @@ const LeagueList = ({ matches }) => {
     <div className="col">
       <div className="card rounded-0">
         <div className="card-header">
-          <div className="col">League Picker</div>
+          <div className="col">League Filter</div>
         </div>
         {leagues && leagues.length > 0 ? (
           <div className="overflow-auto" style={{ height: window.innerHeight - 130, overflow: "auto" }}>

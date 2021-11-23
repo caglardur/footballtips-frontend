@@ -6,17 +6,17 @@ export const setMatch = createSlice({
     value: null
   },
   reducers: {
-    setMatch: (state, action) => {
+    setMatchDetail: (state, action) => {
       state.value = action.payload
     },
-    removeMatch: (state, action) => {
+    removeMatchDetail: state => {
       state.value = null
     }
   }
 })
 
-export const { addLeague, removeLeague, removeAllLeagues } = setLeague.actions
+export const { setMatchDetail, removeMatchDetail } = setMatch.actions
 
-export const thatLeague = state => state.matchLeague.value
+export const thatMatch = state => state.matchDetail.value
 
-export default setLeague.reducer
+export default setMatch.reducer

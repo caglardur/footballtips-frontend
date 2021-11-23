@@ -14,7 +14,7 @@ const DateSelection = () => {
     dispatch(newDate(toDay.getFullYear() + "-" + (toDay.getMonth() + 1 > 9 ? toDay.getMonth() + 1 : "0" + toDay.getMonth() + 1) + "-" + (toDay.getDate() > 9 ? toDay.getDate() : "0" + toDay.getDate())))
   }
 
-  for (let i = -1; i < 4; i++) {
+  for (let i = -2; i < 4; i++) {
     week.push(
       <div type="button" className={new Date(matchDate).getDate() === toDay.getDate() + i ? "col px-5 pt-1 ms-1 text-center bg-white text-dark rounded-0 rounded-top " : "col px-5 mt-1 ms-1 text-center bg-dark text-light rounded-0 rounded-top opacity-50"} key={i} onClick={() => newDateFunction(i)}>
         <div className="col fs-4 fw-bold lh-sm">{toDay.getDate() + i < 10 ? "0" + (toDay.getDate() + i) : toDay.getDate() + i} </div>
