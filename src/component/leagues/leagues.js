@@ -24,18 +24,18 @@ const Leagues = ({ leagues }) => {
             matchLeague.map(league => (
               <li className="list-group-item list-group-item-action bg-success text-light rounded-0" key={league.id}>
                 <div className="row">
-                  <div className="col-md-auto">
+                  <div className="col-auto">
                     <img src={league.flag || "/world.png"} className="mb-1" alt={league.country} height="14" />
                   </div>
                   <div className="col text-nowrap overflow-hidden mx-0 px-0">{league.league}</div>
-                  <div className="col-md-auto">
+                  <div className="col-auto">
                     <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={() => dispatch(removeLeague(league))} />
                   </div>
                 </div>
               </li>
             ))}
           {matchLeague.length > 1 && (
-            <div className="col-md-auto my-1 align-self-end">
+            <div className="col-auto my-1 align-self-end">
               <button type="button" className="btn btn-sm btn-danger rounded-0 " onClick={() => dispatch(removeAllLeagues())}>
                 Clear All
               </button>
@@ -54,7 +54,7 @@ const Leagues = ({ leagues }) => {
               <li type="button" className={matchLeague.some(match => match.id === league.id) ? "list-group-item list-group-item-action rounded-0  bg-success text-light" : "list-group-item list-group-item-action rounded-0"} key={league.id} onClick={() => addLeageuToState({ league: league.league, id: league.id, country: country.country, flag: country.flag })}>
                 <div className="row">
                   <div className="col">{league.league}</div>
-                  <div className="col-md-auto">
+                  <div className="col-auto">
                     <span className="badge bg-danger rounded-pill">{league.matchCount}</span>
                   </div>
                 </div>

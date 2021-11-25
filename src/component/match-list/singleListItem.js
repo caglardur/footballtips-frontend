@@ -3,9 +3,9 @@ const SingleListItem = ({ match }) => {
 
   return (
     <div className="row">
-      <div className="col-md-auto">{matchDate.toLocaleTimeString().slice(0, 5)}</div>
+      <div className="col-auto">{matchDate.toLocaleTimeString().slice(0, 5)}</div>
       <div className="col">{match.teams.home.name}</div>
-      <div className="col-md-auto">-</div>
+      <div className="col-auto">-</div>
       <div className="col">{match.teams.away.name}</div>
     </div>
   )

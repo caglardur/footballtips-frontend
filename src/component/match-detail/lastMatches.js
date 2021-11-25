@@ -1,31 +1,22 @@
 const LastMatches = ({ lastMatches, team }) => {
   const lastSixMatches = lastMatches && lastMatches.slice(0, 6)
-  console.log(team)
+
   return (
-    <div className="card bg-body shadow-sm border-success">
+    <div className="card shadow-sm border-secondary overflow-hidden">
       <div className="card-header">
-        <div className="row">
-          <div className="col">{lastSixMatches && team && team.name + " last " + lastSixMatches.length + " matches"}</div>
-          <div className="col-auto">
-            <div className="row">
-              <div className="col bg-success rounded"></div>
-              <div className="col">Win</div>
-              <div className="col bg-warning rounded"></div>
-              <div className="col">Draw</div>
-              <div className="col bg-danger rounded"></div>
-              <div className="col">Lose</div>
-            </div>
-          </div>
-        </div>
+        <div className="col fw-bold">{lastSixMatches && team && team.name + " last matches"}</div>
       </div>
-      <div className="card-body">
+      <div className="card-body overflow-hidden position-relative bg-light bg-gradient">
+        <div className="position-absolute opacity-25" style={{ left: "0px", top: "0px", zIndex: "-10" }}>
+          <img src={team.logo} className="mb-2" alt={team.name} style={{ height: "300px", filter: "grayscale(100%)" }} />
+        </div>
         <div className="row mb-1 fw-bold">
           <div className="col-auto" style={{ width: "60px" }}>
             Score
           </div>
-          <div className="col-4">Opponent</div>
+          <div className="col">Opponent</div>
           <div className="col-2">Date</div>
-          <div className="col-4">League</div>
+          <div className="col-3">League</div>
         </div>
         <div className="col overflow-hidden">
           {lastSixMatches &&
@@ -59,9 +50,9 @@ const LastMatches = ({ lastMatches, team }) => {
                   )}
                 </div>
 
-                <div className="col-4 overflow-hidden text-nowrap">{team.id === match.teams.home.id ? match.teams.away.name : match.teams.home.name}</div>
+                <div className="col overflow-hidden text-nowrap">{team.id === match.teams.home.id ? match.teams.away.name : match.teams.home.name}</div>
                 <div className="col-2">{new Date(match.fixture.date).toLocaleString().slice(0, 5)}</div>
-                <div className="col-4 overflow-hidden text-nowrap">{match.league.name}</div>
+                <div className="col-3 overflow-hidden text-nowrap">{match.league.name}</div>
               </div>
             ))}
         </div>

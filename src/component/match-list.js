@@ -36,7 +36,7 @@ const MatchList = ({ matches }) => {
         </div>
       </div>
       {match ? (
-        <div className="card-body overflow-auto" style={{ height: window.innerHeight - 130, overflow: "auto" }}>
+        <div className="card-body overflow-auto">
           <ul className="list-group">
             {match.map((m, index) =>
               index === 0 ? (

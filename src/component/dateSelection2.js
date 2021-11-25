@@ -8,8 +8,6 @@ const DateSelection2 = () => {
   const toDay = new Date(matchDate)
   const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-
-
   const newDateFunction = i => {
     toDay.setDate(toDay.getDate() + i)
     dispatch(newDate(toDay.getFullYear() + "-" + (toDay.getMonth() + 1 > 9 ? toDay.getMonth() + 1 : "0" + toDay.getMonth() + 1) + "-" + (toDay.getDate() > 9 ? toDay.getDate() : "0" + toDay.getDate())))
@@ -17,20 +15,20 @@ const DateSelection2 = () => {
 
   return (
     <div className="row mt-4">
-      <div type="button" className="btn col-md-auto bg-dark my-2 mx-1 material-icons md-24 p-0 text-white" onClick={() => newDateFunction(-1)}>
+      <div type="button" className="btn col-auto bg-dark my-2 mx-1 material-icons md-24 p-0 text-white" onClick={() => newDateFunction(-1)}>
         arrow_left
       </div>
-      <div className="col col-md-auto bg-white text-black fs-5 rounded-top lh-1">
-        <div className="row">
-          <div className="col-md-auto p-2 align-middle">
-            <div className="material-icons">today</div>
+      <div className="col col-auto bg-white text-black lh-1" style={{ fontSize: "16px", fontWeight: "normal" }}>
+        <div className="row text-secondary pt-2 mt-1">
+          <div className="col-auto align-middle">
+            <div className="material-icons md-16">today</div>
           </div>
-          <div className="col-md-auto p-2 ps-0">
-            {toDay.getDate() < 10 ? "0" + toDay.getDate() : toDay.getDate()} {month[toDay.getMonth() > 11 ? toDay.getMonth() - 12 : toDay.getMonth()]}
+          <div className="col-auto ps-0">
+            {toDay.getDate() < 10 ? "0" + toDay.getDate() : toDay.getDate()} {month[toDay.getMonth() > 11 ? toDay.getMonth() - 12 : toDay.getMonth()]}. {toDay.getFullYear()}
           </div>
         </div>
       </div>
-      <div type="button" className="btn col-md-auto bg-dark my-2 mx-1 material-icons md-24 p-0 text-white" onClick={() => newDateFunction(+1)}>
+      <div type="button" className="btn col-auto bg-dark my-2 mx-1 material-icons md-24 p-0 text-white" onClick={() => newDateFunction(+1)}>
         arrow_right
       </div>
     </div>

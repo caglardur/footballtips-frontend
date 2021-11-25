@@ -36,7 +36,7 @@ const LeagueList = ({ matches }) => {
           <div className="col">League Filter</div>
         </div>
         {leagues && leagues.length > 0 ? (
-          <div className="overflow-auto" style={{ height: window.innerHeight - 130, overflow: "auto" }}>
+          <div className="overflow-auto">
             <Leagues leagues={leagues} />
           </div>
         ) : (

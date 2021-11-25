@@ -11,44 +11,54 @@ const Result = ({ homeLastMatches, awayLastMatches, homeTeam, awayTeam }) => {
     ratioHome = 0,
     ratioDraw = 0,
     ratioAway = 0,
-    total = 0
+    total = 0,
+    winner,
+    winnerRatio
 
   if (homeLastSixMatches && awayLastSixMatches) {
     homeLastSixMatches.map(match => {
       if (match.teams.home.id === homeTeam.id) {
         if (match.score.fulltime.home > match.score.fulltime.away) {
-          homeWin += 1
+          return (homeWin += 1)
         } else if (match.score.fulltime.home < match.score.fulltime.away) {
-          homeLose += 1
+          return (homeLose += 1)
         } else if (match.score.fulltime.home === match.score.fulltime.away) {
-          homeDraw += 1
+          return (homeDraw += 1)
+        } else {
+          return false
         }
       } else {
         if (match.score.fulltime.home < match.score.fulltime.away) {
-          homeWin += 1
+          return (homeWin += 1)
         } else if (match.score.fulltime.home > match.score.fulltime.away) {
-          homeLose += 1
+          return (homeLose += 1)
         } else if (match.score.fulltime.home === match.score.fulltime.away) {
-          homeDraw += 1
+          return (homeDraw += 1)
+        } else {
+          return false
         }
       }
     })
     awayLastSixMatches.map(match => {
       if (match.teams.home.id === awayTeam.id) {
         if (match.score.fulltime.home > match.score.fulltime.away) {
-          awayWin += 1
+          return (awayWin += 1)
         } else if (match.score.fulltime.home < match.score.fulltime.away) {
-          awayLose += 1
+          return (awayLose += 1)
         } else if (match.score.fulltime.home === match.score.fulltime.away) {
-          awayDraw += 1
+          return (awayDraw += 1)
+        } else {
+          return false
         }
       } else {
         if (match.score.fulltime.home < match.score.fulltime.away) {
-          awayWin += 1
+          return (awayWin += 1)
         } else if (match.score.fulltime.home > match.score.fulltime.away) {
-          awayLose += 1
+          return (awayLose += 1)
         } else if (match.score.fulltime.home === match.score.fulltime.away) {
-          awayDraw += 1
+          return (awayDraw += 1)
+        } else {
+          return false
         }
       }
     })
@@ -56,13 +66,23 @@ const Result = ({ homeLastMatches, awayLastMatches, homeTeam, awayTeam }) => {
     ratioHome = (100 * (homeWin + awayLose)) / total
     ratioAway = (100 * (homeLose + awayWin)) / total
     ratioDraw = (100 * (homeDraw + awayDraw)) / total
+    if (ratioHome > ratioDraw && ratioHome > ratioAway) {
+      winner = homeTeam.name
+      winnerRatio = ratioHome
+    } else if (ratioAway > ratioDraw && ratioAway > ratioHome) {
+      winner = awayTeam.name
+      winnerRatio = ratioAway
+    } else {
+      winner = "Draw"
+      winnerRatio = ratioDraw
+    }
   }
 
   return (
-    <div className="card border-success">
+    <div className="card bg-body shadow-sm overflow-hidden">
       <div className="card-header">
         <div className="row">
-          <div className="col">Result</div>
+          <div className="col fw-bold">Result</div>
           <div className="col-auto">
             <div className="row">
               <div className="col bg-success rounded"></div>
@@ -75,42 +95,16 @@ const Result = ({ homeLastMatches, awayLastMatches, homeTeam, awayTeam }) => {
           </div>
         </div>
       </div>
-      <div className="card-body row text-center">
-        <div className="col-lg">
+      <div className="card-body col text-center bg-light bg-gradient">
+        <div className="col mb-4">
           <div className="row">
             <div className="col">
               <div className="col mb-2 fs-6 text-center">{homeTeam && homeTeam.name}</div>
               <div className="col">
                 <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">Win</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-success m-1 py-2 px-3">{homeWin}</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">Draw</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-warning m-1 py-2 px-3">{homeDraw}</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">Lose</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-danger m-1 py-2 px-3">{homeLose}</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
+                  <div className="col-auto rounded bg-success m-1 py-2 px-3 fw-bold">{homeWin}</div>
+                  <div className="col-auto rounded bg-warning m-1 py-2 px-3 fw-bold">{homeDraw}</div>
+                  <div className="col-auto rounded bg-danger m-1 py-2 px-3 fw-bold">{homeLose}</div>
                 </div>
               </div>
             </div>
@@ -118,114 +112,19 @@ const Result = ({ homeLastMatches, awayLastMatches, homeTeam, awayTeam }) => {
               <div className="col mb-2 fs-6 text-center">{awayTeam && awayTeam.name}</div>
               <div className="col">
                 <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">Win</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-success m-1 py-2 px-3">{awayWin}</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">Draw</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-warning m-1 py-2 px-3">{awayDraw}</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">Lose</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-danger m-1 py-2 px-3">{awayLose}</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
+                  <div className="col-auto rounded bg-success m-1 py-2 px-3 fw-bold">{awayWin}</div>
+                  <div className="col-auto rounded bg-warning m-1 py-2 px-3 fw-bold">{awayDraw}</div>
+                  <div className="col-auto rounded bg-danger m-1 py-2 px-3 fw-bold">{awayLose}</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-lg">
-          <div className="row">
-            <div className="col">
-              <div className="col mb-2 fs-6 text-center">Combination</div>
-              <div className="col">
-                <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">{homeTeam && homeTeam.name}</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-secondary m-1 py-2 px-3">{homeWin + awayLose}</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">Draw</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-warning m-1 py-2 px-3">{homeDraw + awayDraw}</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">{awayTeam && awayTeam.name}</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-secondary m-1 py-2 px-3">{homeLose + awayWin}</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col">
-              <div className="col mb-2 fs-6 text-center">Percent</div>
-              <div className="col">
-                <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">{homeTeam && homeTeam.name}</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-secondary m-1 p-2">{ratioHome > 9 ? ratioHome.toFixed(0) : "0" + ratioHome.toFixed(0)} %</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">Draw</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-warning m-1 p-2">{ratioDraw > 9 ? ratioDraw.toFixed(0) : "0" + ratioDraw.toFixed(0)} %</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="row text-white d-flex justify-content-center">
-                  <div className="col-6 text-black text-end my-1 p-2">{awayTeam && awayTeam.name}</div>
-                  <div className="col-6">
-                    <div className="row">
-                      <div className="col-auto rounded bg-secondary m-1 p-2">{ratioAway > 9 ? ratioAway.toFixed(0) : "0" + ratioAway.toFixed(0)} %</div>
-                      <div className="col"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="col">
+          <div className="col-auto rounded p-2 bg-secondary bg-gradient text-center text-white">
+            <div className="col fs-6">Best Result</div>
+            <div className="col fs-1">{winner}</div>
+            <div className="col fs-6">{winnerRatio && winnerRatio.toFixed(0)}%</div>
           </div>
         </div>
       </div>
