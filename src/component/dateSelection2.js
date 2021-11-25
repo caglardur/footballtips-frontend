@@ -20,11 +20,13 @@ const DateSelection2 = () => {
       </div>
       <div className="col col-auto bg-white text-black lh-1" style={{ fontSize: "16px", fontWeight: "normal" }}>
         <div className="row text-secondary pt-2 mt-1">
-          <div className="col-auto align-middle">
-            <div className="material-icons md-16">today</div>
-          </div>
-          <div className="col-auto ps-0">
-            {toDay.getDate() < 10 ? "0" + toDay.getDate() : toDay.getDate()} {month[toDay.getMonth() > 11 ? toDay.getMonth() - 12 : toDay.getMonth()]}. {toDay.getFullYear()}
+          {window.innerWidth > 500 && (
+            <div className="col-auto align-middle pe-0">
+              <div className="material-icons md-16">today</div>
+            </div>
+          )}
+          <div className="col-auto">
+            {toDay.getDate() < 10 ? "0" + toDay.getDate() : toDay.getDate()} {month[toDay.getMonth() > 11 ? toDay.getMonth() - 12 : toDay.getMonth()]}.
           </div>
         </div>
       </div>

@@ -89,13 +89,13 @@ const MatchDetail = () => {
           </div>
 
           <div className="row d-flex justify-content-center mb-4">
-            <div className="col-auto d-flex flex-column justify-content-between">
-              <img src={matchDetail.teams.home.logo} className="img-fluid" alt={matchDetail.teams.home.name} style={{ maxHeight: "200px" }} />
+            <div className="col d-flex flex-column justify-content-between" style={{ maxHeight: "200px", maxWidth: "200px" }}>
+              <img src={matchDetail.teams.home.logo} className="img-fluid m-auto" alt={matchDetail.teams.home.name} style={{ maxHeight: "150px", maxWidth: "100%" }} />
               <h6 className="text-center mt-3">{matchDetail.teams.home.name}</h6>
             </div>
             <div className="col-auto align-self-center">{matchDetail.fixture.status.short === "FT" && <FinalScore goals={matchDetail.goals} />}</div>
-            <div className="col-auto d-flex flex-column justify-content-between">
-              <img src={matchDetail.teams.away.logo} className="img-fluid" alt={matchDetail.teams.away.name} style={{ maxHeight: "200px" }} />
+            <div className="col d-flex flex-column justify-content-between" style={{ maxHeight: "200px", maxWidth: "200px" }}>
+              <img src={matchDetail.teams.away.logo} className="img-fluid m-auto" alt={matchDetail.teams.away.name} style={{ maxHeight: "150px", maxWidth: "100%" }} />
               <h6 className="text-center mt-3">{matchDetail.teams.away.name}</h6>
             </div>
           </div>
