@@ -9,6 +9,7 @@ import SingleListItem from "./match-list/singleListItem"
 
 const MatchList = ({ matches }) => {
   const [match, setMatch] = useState(null)
+  const [matchFilter, setMatchFilter] = useState("")
   const matchLeague = useSelector(thatLeague)
   const matchDetail = useSelector(thatMatch)
   const dispatch = useDispatch()
@@ -18,21 +19,58 @@ const MatchList = ({ matches }) => {
     setMatch(null)
     if (matches && matches.length > 0) {
       if (matchLeague.length > 0) {
-        const newMatchList = matches.filter(match => matchLeague.some(league => league.id === match.league.id))
-        const notCanceledMatches = newMatchList.filter(match => !canceledMatchCode.includes(match.fixture.status.short))
-        setMatch(notCanceledMatches)
+        if (matchFilter && matchFilter.length > 1) {
+          const newFilterMatches = matches.filter(match => {
+            const lowerHomeTeam = match.teams.home.name.toLowerCase()
+            const lowerAwayTeam = match.teams.away.name.toLowerCase()
+            const lowerFilter = matchFilter.toLowerCase()
+            return lowerHomeTeam.includes(lowerFilter) || lowerAwayTeam.includes(lowerFilter)
+          })
+          const newMatchList = newFilterMatches.filter(match => matchLeague.some(league => league.id === match.league.id))
+          const notCanceledMatches = newMatchList.filter(match => !canceledMatchCode.includes(match.fixture.status.short))
+          setMatch(notCanceledMatches)
+        } else {
+          const newMatchList = matches.filter(match => matchLeague.some(league => league.id === match.league.id))
+          const notCanceledMatches = newMatchList.filter(match => !canceledMatchCode.includes(match.fixture.status.short))
+          setMatch(notCanceledMatches)
+        }
       } else {
-        const notCanceledMatches = matches.filter(match => !canceledMatchCode.includes(match.fixture.status.short))
-        setMatch(notCanceledMatches)
+        if (matchFilter && matchFilter.length > 1) {
+          const newFilterMatches = matches.filter(match => {
+            const lowerHomeTeam = match.teams.home.name.toLowerCase()
+            const lowerAwayTeam = match.teams.away.name.toLowerCase()
+            const lowerFilter = matchFilter.toLowerCase()
+            return lowerHomeTeam.includes(lowerFilter) || lowerAwayTeam.includes(lowerFilter)
+          })
+          const notCanceledMatches = newFilterMatches.filter(match => !canceledMatchCode.includes(match.fixture.status.short))
+          setMatch(notCanceledMatches)
+        } else {
+          const notCanceledMatches = matches.filter(match => !canceledMatchCode.includes(match.fixture.status.short))
+          setMatch(notCanceledMatches)
+        }
       }
     }
-  }, [matches, matchLeague])
+  }, [matches, matchLeague, matchFilter])
 
   return (
     <div className="card rounded-0">
       <div className="card-header">
         <div className="row">
-          <div className="col">Match List</div>
+          <div className="col fs-6">Match List</div>
+          <div className="col-auto">
+            <div className="row position-relative">
+              <div className="col-auto">
+                <input type="text" className="form-control form-control-sm" value={matchFilter} placeholder={matchFilter || "Filter"} aria-label="Country" onChange={e => setMatchFilter(e.target.value)} />
+              </div>
+              {matchFilter && matchFilter.length > 0 && (
+                <div className="col-auto position-absolute top-50 end-0 translate-middle-y">
+                  <span type="button" className="material-icons md-24" onClick={() => setMatchFilter("")}>
+                    clear
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
       {match ? (

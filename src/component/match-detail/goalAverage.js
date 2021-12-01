@@ -91,7 +91,7 @@ const GoalAverage = ({ homeLastMatches, awayLastMatches, homeTeam, awayTeam }) =
         </div>
 
         <div className="col">
-          <div className="col-auto rounded p-2 bg-secondary bg-gradient text-center text-white">
+          <div className="col rounded p-2 bg-secondary bg-gradient text-center text-white">
             <div className="col fs-6">Best Score</div>
             <div className="col fs-1">{score}</div>
             <div className="col fs-6">{ratioScore.toFixed(0)}%</div>
